@@ -1,2 +1,2 @@
-## Java Study - 이론 ##
+## Java Study - 실습 ##
 
