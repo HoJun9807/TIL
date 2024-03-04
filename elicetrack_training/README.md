@@ -1,2 +1,2 @@
-## Java Study - 실습 ##
+## Java - 실습 ##
 
