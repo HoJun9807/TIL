@@ -1,2 +1,2 @@
-## Java - 실습 ##
+## elice track - live_training ##
 

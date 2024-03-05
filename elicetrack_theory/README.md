@@ -1,2 +1,2 @@
-## Java - 이론 ##
+## elice track - live_theory ##
 
