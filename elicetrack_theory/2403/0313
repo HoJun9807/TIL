@@ -1,0 +1,38 @@
+## elice cloudtrack - 0311 ##
+
+# String.join();
+    - 문자열이 포함된 배열을 String 문자열로 합치는데 사용하는 함수
+    ex.
+        public class Join {
+        public static void main(String[] args) {
+            String[] arr = {"elice", "racer", "is", "awesome"};
+            String str = String.join(" ", arr);
+            System.out.println(str);
+        }
+    }
+
+# Innerclass
+    - 자바에서는 클래스 내부에 또 다른 클래스를 정의할 수 있는데, 이를
+    내부 클래스라 함.
+
+    - 인스넌스 내부 클래스
+    - 정적 내부 클래스
+    - 지역 내부 클래스
+
+# Lambda Expression(람다식)
+    - 메서드를 하나의 식으로 표현할 수 있게 해주는 기능
+
+    - 구조 : -> 를 사용하여 매개변수 목록과 표현식 또는 문장을 구분
+        ex. (매개변수 목록) -> {표현식 또는 문장;}
+
+# Stream
+    - forEach
+        코드 - foreach package
+        method reference : 클래스명::메소드명 형식 / 람다 표현식을
+        더 간결하게 표현.
+
+    - 특징
+        1. 비파괴적 : 안전하게 데이터 처리
+        2. 함수형 프로그래밍 지원 : 코드 간결
+        3. 내부 반복 처리 : 처리 과정을 내부적으로 관리
+        4. 병렬처리 지원 : parallelStream() 사용하여 병렬 처리
