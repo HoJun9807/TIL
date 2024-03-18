@@ -1,0 +1,40 @@
+## elice cloudtrack - 0318 ##
+
+# 웹을 구성하는 요소
+    HTML = 건물 설계도
+    CSS = 인테리어 디자인
+    JavaScript = 기능과 효과
+
+# 고려 사항
+    1. 웹 표준 : 공식 표준이나 기술 규격
+    2. 웹 접근성 : 모두가 이용
+    3. 크로스 브라우징 : 모든 브라우저 또는 기기에서 작동
+
+
+# 태그 요소
+    Block : 줄바꿈 현상 O / y축 정렬 / 공간 생성 / 상하배치
+    Inline : 줄바꿈 현상 X / X축 정렬
+    
+# CSS 연동방법
+    <h1 style="color:blue;">Hello world</h1> : 태그 안에 직접 원하는 스타일을 적용
+    <style>h1 {color:red;} </style> : <style> 태그 안에 CSS 코드를 작성합니다.
+    <link rel="stylesheet" href="index.css"> : <link> 태그로 CSS 문서를 불러옵니다.
+
+# CSS 선택자
+     h2 { color: red; }
+    .coding { color: green; }
+    #coding { color: yellow; }  
+
+    <h2>Type Hello World</h2>
+    <h2 class="coding">Class Hello World</h2>
+    <h2 id="coding">Id Hello World</h2>
+
+# CSS 우선순위
+    순서 : 나중에 적용한 값의 우선 순위가 더 높다
+    디테일 : 좀 더 구체적으로 작성된 선택자의 우선 순위가 더 높다
+    선택자 : style > id > class > type 순으로 우선 순위가 높다.
+
+# 레이아웃 속성
+    display : Block과 Inline 요소의 성격을 바꿀 때 사용
+    float : 선택된 요소를 왼쪽 끝 혹은 오른쪽 끝에 정렬
+    clear : float에 대한 속성을 제어
