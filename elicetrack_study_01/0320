@@ -1,0 +1,41 @@
+## elice cloudtrack - 0320 ##
+
+# 레이아웃
+    display : Block과 Inline 요소의 성격을 바꿀 때 사용 동시(-) 사용 가능
+
+    float : left or right 끝으로 정렬 시킬 때 사용
+
+    clear : float에 대한 속성을 제어
+
+    .container 화면의 전체적인 정렬을 관리함 
+        width : 가로폭
+        margin: 0 auto; //좌우 자동
+
+# Transform
+    :rotate(n deg) : 입력한 각도 만큼 회전
+    :scale(a, b) : 가로 a배 , 세로 b배 만큼 확대 
+    :skew(n deg, n deg) : x,y축을 기준으로 비틈
+    :translate(n px, n px) : 좌표 변경
+
+    -prefix- : 다른 버전의 브라우저에서의 실행을 원할 때
+
+# Transtion
+    -property : 효과를 적용하고자 하는 css속성 / ex. width
+    -duration : 효과가 나타나는데 걸리는 시간 / ex. 2s
+    -timing-function : 효과의 속도 / ex. linear(일정하게)
+    -delay : 효과 발동 / ex. 1s
+
+    hover : 마우스를 올렸을 때 변경
+
+# Animation
+    -iteration-count : 반복 횟수 / ex. infinite
+    -direction : 진행방향 / ex. alternate
+
+# 미디어 쿼리 :
+    반응형 / 적응형 웹사이트를 만들 때 사용되는 CSS 구문
+
+    @media () and ()
+
+    주의사항
+        <meta name="viewprot" content=“width=device-width, initial-scale=1.0”>
+            => 해당 태그를 메타 태그 밑에 작성해야함.
