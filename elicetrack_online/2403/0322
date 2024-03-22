@@ -1,0 +1,61 @@
+## elice cloudtrack - [3기-03-03-05] ##
+
+# Git
+    특징 :
+        1. 가지 치기와 병합
+        2. 가볍고 빠름
+        3. 분산 작업
+        4. 데이터 보장
+        5. 준비 영역
+        6. 오픈 소스
+
+    저장소 생성 : git init
+
+    파일 생성 : git add
+
+    상태 확인 : git status
+
+    저장소 반영 : git commit -m "메시지"
+
+    저장 메시지 내용 변경 : git commit --amend
+
+    저장소 반영 내역 : git log
+        -p -n: n개의 commit 비교
+        --stat : 어떤 파일이 수정되고 변경 및 추가 삭제 확인
+        --pretty=oneline : 각 commit을 한 줄로 출력
+        --graph : 연결관계를 아스키 그래프로 출력
+        -S function_name : 특정 텍스트(function_name)가 있는지 검사
+
+    변경 사항 비교 :git diff
+
+# Git Branch
+    : 독립적으로 어떤 작업을 진행하기 위한 개념
+    
+    생성 방법 : git branch <원하는 이름>
+    Branch의 종류 : like_feature / master
+    전환 방법 : git checkout like_feature
+    git checkout <snapshot hash> : git log로 확인한 snapshot을 넘나들때도 사용
+
+    fast-forward : merge가 이루어지는 것
+    Merge : master Branch로 통합 ex git merge <생성한 branch>
+
+    git log --graph --all : commit graph 확인
+
+    git branch --merged : 병합된 branch 확인
+    git branch -d <병합된 branch> : 삭제
+
+    conflict : 같은 파일을 동시에 변경하였을 때 발생하는 충돌
+
+# Git 불러오기
+    git clone <주소>
+    
+    git remote add origin <주소> : 원격 저정소 추가
+    git remote show origin : 원격 저장소 목록
+    git remote rm <원격저장소이름> : 저장소 삭제
+
+    git pull : 원격 저장소에서 가져오면서 병합까지
+    git fetch : 저장소에서 가져오기
+        git merge origin/master 병합
+    git push origin master: 데이터를 원격저장소에 반영
+
+    origin : 원격저장소의 단축이름을 origin으로 지정
