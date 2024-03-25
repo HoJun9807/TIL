@@ -1,3 +1,122 @@
 ## elice cloudtrack - 0325 ##
 
+#SQL
+    - DB :
+        실시간 접근성
+        지속적인 변화 : 데이터의 삽입, 삭제, 갱신을 통해 최신 데이터를 유지
+        동시 공유 : 여러 사용자가 동시에 이용
+        내용에 대한 참조 : 데이터가 저장된 물리적 위치가 아닌 값을 가지고 검색할 수 있어야함.
+
+        RDB :
+            행, 열로 구조화된 자료를 SQL로 조회
+                - 중복 데이터 저장을 피하여 데이터가 반복되진 않기 때문에 데이터의 일관성을 보장하고 데이터 조작, 보고가 더 간단해짐
+                - 정보를 쪼개서(관련) 여러 테이블에 저장
+                - 데이블은 공통 컬럼으로 연결(key)
+
+        정규화 :
+            작고 잘 조직된 테이블과 관계들로 나누는 것
+            
+        반정규화 :
+            정규화의 반대 / 데이터 조회 시 속도가 느려질 수 있음
+
+        Join :
+            SELCET 구문 안에 테이블을 연결하는 매커니즘
+            하나의 조회쿼리로 여러 테이블에 나눠져있는 데이터를 조회해야함
+
+        NOSQL : MongoDB
+            데이터 구조화가 아닌 문서라는 개념
+            분산과 확장이 용이
+            분석업무에 활용하기에는 불편하기 때문에 RDB형태로 변환해서 분석
+
+        SQL : RDB를 관리하기 위한 언어
+            DML : 테이블의 데이터를 저장, 수정, 삭제하는 명령어
+            DDL : 테이블을 포함한 여러 객체를 생성, 수정, 삭제하는 명령어
+            TCL : 트랜잭션 데이터의 영구 저장, 취소등과 관련된 명령어
+            DCL : 데이터 사용 권한과 관련된 명령어
+
+        SQL 기본 접근
+            1. 자주 쓰이는 문법의 사용
+                SELECT, WHERE, 집계 함수, JOIN
+            2. 의사코드처럼 설계
+                WHAT & HOW
+            
+            VARCHAR(n) : nBytes 크기의 가변 길이 문자열 데이터
+            INT : 정수형 숫자 데이터(4Bytes)
+            FLOAT : 부동 소수점 데이터(4Bytes)
+            DATETIME : 날짜와 시간 형태의 기간 데이터
+
+            테이블 생성 / 테이블 변경 / 테이블 삭제 / 데이터 추가 / 데이터 조회
+ 
+            CREATE DATABASE foo;
+            /* 데이터 베이스 생성 */
+
+            SHOW TABLES;
+            /* 테이블 조회 */
+
+            use foo;
+            /* 테이블 선택 */
+
+            CREATE TABLE table1(
+                col1 INT NOT NULL,
+                col2 VARCHAR(10)
+                );
+            /* 테이블 생성 */
+                
+            CREATE TABLE table2(
+                col1 INT NOT NULL AUTO_INCREMENT,
+                col2 VARCHAR(10) NOT NULL,
+                PRIMARY KEY(col1)
+                );
+                
+            CREATE TABLE foo(
+                foo int
+                );
+                
+            ALTER TABLE foo ADD COLUMN(bar VARCHAR(10));
+            /* 테이블 변경 */
+            DESC foo;
+
+            DROP TABLE foo;
+            /* 테이블 삭제 */
+
+            INSERT INTO table1 (col1) VALUES (1);
+            INSERT INTO table2 VALUES (1, 'one');
+            INSERT INTO table2 VALUES (2,'two'),(3,'three');
+            /* 데이터 추가 */
+
+            SELECT col2
+            FROM table2
+            WHERE col2 = 'two';
+            /* 테이블 조회 및 조건 */
+
+            WHERE 조건
+            IN / NOT IN 연산자
+            BETWEEN 연산자
+            LIKE 문자가 포함된 데이터 찾기
+            ORDER BY 
+
+            데이터 변경
+            UPDATE table1 SET col1 = 100 WHERE col1 = 1;
+
+            데이터 삭제
+            DELETE FROM table1 WHERE col1 = 100;
+            DELETE FROM table2;
+
+
+        Primary KEY & Foreign KEY :
+            다른테이블의 기본키를 참조하는 속성으로 데이블의 관계를 정의
+
+
+        SQL 함수 - 집계 함수
+            함수(내장함수) : https://dev.mysql.com/doc/refman/8.0/en/built-in-function-reference.html
+            COUNT(expr) : 개수를 반환, *를 사용하면, 조회된 전체 데이터 건 수를 반환
+                ex. select count(*) from health;
+            MAX(expr) : 최대값 반환
+                ex. select MAX(TOT_PRES_DD_CNT) from health where gender=2;
+            MIN(expr) : 최소값 반환
+                ex. select MIN(TOT_PRES_DD_CNT) from health where gender=2;
+            SUM(expr) : 합계 반환
+                ex. select SUM(TOT_PRES_DD_CNT) from health where gender=2;
+            AVG(expr) : 평균값 반환
+                ex. select AVG(TOT_PRES_DD_CNT) from health where gender=2;
 

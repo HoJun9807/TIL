@@ -1,0 +1,27 @@
+## elice cloudtrack - 0325 ##
+
+# 헬스장 DB 만들기
+    데이터베이스 테이블 생성 방법과 DESC로 구조 출력하는 방법
+
+# 헬스장 DB 회원 추가
+    INSERT INTO 문을 사용해서 추가하고 SELECT FROM 문을 사용해서 출력
+
+# 서점 DB 관리하기
+    NOT NULL 을 추가하기 위해서는 MODIFY COLUMN 을 사용해서 해당 데이터 타입 설정을 변경한다.
+    기본값을 설정하기 위해서 MODIFY COLUMN 을 사용해서 DEFAULT 값을 설정해준다.
+    기존 칼럼에 조건을 CHECK 제약 조건을 사용하여 price값에 조건을 부여한다.
+        ex. ALTER TABLE 테이블명 ADD CONSTRAINT check_컬럼명 CHECK (컬럼명 >=0);
+
+# 서점 DB 인덱스 추가
+    컬럼에 인덱스를 생성하기 위해서는
+        ex. CREATE INDEX bookstore_name_index ON 테이블명 (컬럼명);
+
+# 신체 검사표
+    SELECT FROM 문에 WHERE 조건절을 사용하여 조회한다.
+
+# 체지방률 검사
+    SELECT FROM 문에 AS를 사용하여 임시로 컬럼 이름을 지정하여 원하는 조건을 출력할 수 있다.
+
+# 주주총회
+    SELECT FROM을 잘 활용하면 문제는 간단히 풀 수 있다. 중간에 name의 조건이 3명이상 일 때 
+    IN()을 사용하면 해당 출력을 해결 할 수 있다. 
