@@ -128,24 +128,25 @@
                 - void clear() : 저장된 모든 객체를 삭제
                 - boolean remove(Object o) : 주어진 객체를 삭제
 
-        
-        - Iterator
-            ex. Iterator<String> iterator = set.iterator();
-            메서드 :
-                - hasNext() : 가져올 객체가 있으면 true없으면 false
-                - next() : 컬렉션에서 하나의 객체를 가져온다.
-                - remove() : Set 컬렉션에서 객체를 제거
-                ex. while(iterator.hasNext()){
-                    String str = iterator.next();
-                    if(str.equals("홍길동")){
-                        iterator.remove();      // 삭제
-                    }
-                } => 저장된 객체수만큼 루핑
-
-        - HashSet
+            - HashSet
             ex. Set<E> set = new HashSet<E>();
             특징 : 동일 객체 및 동등 객체는 중복 저장하지 않는다.
 
+
+    - Iterator
+        ex. Iterator<String> iterator = set.iterator();
+        메서드 :
+            - hasNext() : 가져올 객체가 있으면 true없으면 false
+            - next() : 컬렉션에서 하나의 객체를 가져온다.
+            - remove() : Set 컬렉션에서 객체를 제거
+            ex. while(iterator.hasNext()){
+                String str = iterator.next();
+                if(str.equals("홍길동")){
+                    iterator.remove();      // 삭제
+                }
+            } => 저장된 객체수만큼 루핑
+
+       
     - Map 컬렉션
         특징 : key와 value로 구성된 Map.Entry객체를 저장하는 구조
              : 키와 값 모두 객체

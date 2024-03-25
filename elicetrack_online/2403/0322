@@ -59,3 +59,4 @@
     git push origin master: 데이터를 원격저장소에 반영
 
     origin : 원격저장소의 단축이름을 origin으로 지정
+
