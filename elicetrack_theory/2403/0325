@@ -46,6 +46,9 @@
             DATETIME : 날짜와 시간 형태의 기간 데이터
 
             테이블 생성 / 테이블 변경 / 테이블 삭제 / 데이터 추가 / 데이터 조회
+
+            CREATE USER 'user'@localhost IDENTIFIED BY 'password';
+            /* 계정 생성 */
  
             CREATE DATABASE foo;
             /* 데이터 베이스 생성 */
