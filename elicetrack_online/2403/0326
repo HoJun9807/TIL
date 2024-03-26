@@ -1,0 +1,46 @@
+## elice cloudtrack - [3기-03-04-02] ##
+
+    - 제약 조건
+        NOT NULL : 널 값을 비허용
+        UNIQUE : 중복뒤는 값을 비허용
+        DEFAULT : 기본값을 설정
+        CHECK : 값의 범위를 제한하여 특정 값만 허용
+
+        제약 조건 정의(CONSTRAINT)
+            ex. CONSTRAINT 제약조건이름 제약조건 적용할속성 / NOT NULL, DEFAULT는 적용 불가
+
+        제약 조건 추가
+            ex. ALTER TABLE 테이블명 ADD CONSTRAINT 제약조건이름 제약조건 적용할속성
+
+            DEFALUT => ALTER TABLE 테이블명 ALTER 적용할속성 SET DEFALUT 기본값
+
+        제약 조건 삭제
+            ex. ALTER TABLE 테이블명 DROP CONSTRAINT 제약조건이름
+
+            DEFALUT => ALTER TABLE 테이블명 ALTER 적용된속성 DROP DEFAULT
+
+        제약 조건 변경
+            ex. ALTER TABLE 테이블명 ALTER 적용된속성 SET 제약조건 변경할값
+
+    - 키(KEY) :
+        조건에 만족하는 튜플을 찾거나, 정렬할 때 기준이 되는 속성
+            ex. 기본키, 외래키
+            
+            기본키 (Primary Key) : 서로 다른 튜플을 유일하게 식별할 수 있는 기준이 되는 속성
+                => 중복되는 값 x / 널 값 x / 테이블 당 1개만 설정
+
+            외래키 (Foreign Key) : 다른 테이블의 기본키를 참조하는 속성으로 테이블의 관계를 정의
+                => 참조되는 테이블의 기본키에 없는 값은 지정할 수 없음
+
+        기본키 설정
+            ex. PRIMARY KEY
+
+        외래키 설정
+            ex. FOREIGN KET 참조할속성 REFERENCES 참조되는테이블(참조되는속성)
+
+        두 개의 기본키를 하나의 기본키로 사용할 때
+            ex. CONSTRAINT 새로운기본키이름 PRIMARY KEY (기본키, 기본키)
+
+    - 무결성 제약 조건
+        개체 무결성 : 기본키는 널 값과 중복된 값을 가질 수 없음
+        참조 무결정 : 외래키는 널이거나 참조되는 릴레이션의 기본키 값과 동일
