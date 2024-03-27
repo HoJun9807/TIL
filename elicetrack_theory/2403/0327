@@ -1,0 +1,43 @@
+## elice cloudtrack - 0325 ##
+
+# SQL 기본 접근
+    1. 의사코드처럼 과정 설계
+    2. 자주 쓰이는 문법의 사용
+
+    - 쿼리 실행 순서
+        서버로그인 --> 권한 확인 --> 문법 확인 --> FROM,JOIN / WHERE / GROUP BY / HAVING / SELECT / ORDER BY / LIMIT
+
+        ex.
+            SELECT select_expr [, select_expr] ...
+                FROM table_references
+                [WHERE where_condition]
+                [GROUP BY {col_name} [, col_namel]]
+                [HAVING where_condition]
+                [ORDER BY {col_name}
+                [ASC | DESC]]
+                [LIMIT {[offset,] row_count}]
+
+            SELECT select_expr: 조회 컬럼 혹은 표현식
+                FROM table_references: 조회 대상 테이블 이름
+                WHERE where_condition: 조회 조건
+                GROUP BY : 공통 열 값을 기준으로 행을 그룹화
+                HAVING where_condition : 집계 결과에서 조건(불필요한 그룹 걸러내기)
+                ORDER BY col_name: 조회 결과에서 특정 컬럼 기준 정렬
+                LIMIT row_count: 조회 결과에서 원하는 레코드 수 만큼 반환
+
+    - 데이터 그룹화 
+        GROUP BY : 유형별로 알고 싶을 때 컬럼에 그룹화 / 데이터 관계를 파악하는 것이 중요
+
+    - 관계 : 
+        - JOIN :
+            SELECT 구문 안에 테이블을 연결하는 매커니즘
+            여러 테이블로 나누어 저장하면 하나의 조회쿼리로 여러 테이블에 나눠져있는 데이터를 조회해야함
+            특정 문법을 통해 테이블 간 관계를 통해 하나의 결과를 가져올 수 있음
+
+            INNER JOIN : 교집합
+
+            LEFT JOIN : 합집합에서 right table에만 포함되는 값을 뺌
+
+        - UNION : 조회 결과 합치기, 중복 x
+
+        - SUBQUERY : ()안에 넣어서 임시테이블처럼 동작
