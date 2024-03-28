@@ -1,0 +1,104 @@
+## elice cloudtrack - [3기-03-04-04] ##
+
+# SQL
+    - 테이블(talbe)
+        구성 요소 : 컬럼(속성명) / 레코드(속성값)
+        DISTINCT : 중복제거 검색
+
+    - 조회 : 조건 추가 
+        기타 연산자 : 
+            - BETWEEN : 사이에 포함된 값 
+            - IN : 포함된 값
+            - NOT IN : 포함되지 않은 값
+
+    - DML(데이터 조작어)
+        LIKE : 특정 문자가 포함된 문자열을 찾고 싶을 때 사용하는 명령어
+            ex. LIKE '%a%' => a를 포함 / LIKE 'a%' => a로 시작 / Like '%a' => a로 끝
+
+        ORDER BY : 데이터를 검색할 때 정렬하여 결과를 출력하는 명령어
+            ex. ORDER BY a ASC(오름차순/기본값)/DESC;
+
+        INSERT : 관계형 데이터베이스의 테이블에 값을 저장하는 명령어
+            ex. INSERT INTO A VALUES ('a')';
+
+        UPDATE : 관계형 데이터베이스의 데이블에서 이미 저정된 값을 수정하는 명령어
+            ex. UPDATE A SET name = 'b' WHERE name = 'a';
+
+        DELETE : 관계형 데이터베이스의 데이블에서 이미 저정된 값을 삭제하는 명령어
+            ex DELETE FROM A WHERE name = 'b';
+
+    - 함수
+        COUNT : 검색한 결과의 데이터의 개수를 가져오는 내장함수
+            ex. COUNT(*)
+
+        LIMIT : 데이터에서 출력하고자 하는 데이터의 개수를 제한하는 명령어
+            ex. SELECT * FROM A LIMIT 5;
+             => A 테이블에서 데이터를 상위 5개만 가져오기
+            ex. SELECT * FROM A LIMIT 1, 5;
+             => A 2번째 컬럼부터 데이터를 5개만 가져오기
+
+        SUM : 지정한 컬럼들의 값을 모두 더하여 총점을 구해주는 내장함수
+            ex. SELECT SUM(a) FROM A;
+        AVG : 지정한 컬럼들의 평균값을 구해주는 내장함수
+            ex. SELECT AVG(a) FROM A;
+
+        MAX & MIN : 테이블에 존재하는 데이터에서 최대값/최소값을 가져오는 내장함수
+
+        DATE_FORMAT : 조회할 데이터의 값에서 원하는 값만 출력해서 볼 수 있다.
+            ex. SELECT order_number, DATE_FORMAT(order_date, '%Y/%m/%d') AS order_date 
+
+
+        GROUP BY : 데이터 그룹 짓는 명령어
+            ex. SELECT user_id, 내장함수(컬럼명) FROM 테이블명 GROUP BY user_id;
+                => user_id가 같은 열에서 컬럼의 내용을 내장함수에 맞게 출력  
+
+        HAVING : 데이터 그룹에 조건을 적용하는 명령어
+            ex. SELECT user_id, 내장함수(컬럼명) 
+                FROM 테이블명 
+                GROUP BY user_id
+                HAVING COUNT(user_id) > 1;
+                => 해당 데이터가 1개 초과인 데이터 검색 조건
+
+        INNER JOIN : 두개의 테이블에서 조회하는 명령어
+            ex. SELECT 검색할 컬럼
+                FROM 테이블명
+                INNER JOIN 연결 할 테이블명
+            ON : INNER JOIN에서 연결한 조건 컬럼
+                ex. ON user.id = rental.user_id;
+
+        LEFT JOIN : 왼쪽 테이블의 모든 값을 포함하여 연결하기
+            ex. LEFT JOIN rental
+                => user에 대응하는 rental의 값이 null이여도 user의 모든 값을 출력한다.
+
+        RIGHT JOIN : 오른쪽 테이블의 모든 값을 포함하여 연결하기
+            ex. RIGHT JOIN rental
+                => rental에 대응하는 user의 값이 null이여도 rental의 모든 값을 출력한다.
+
+    - 서브쿼리
+        하나의 쿼리 안에 포함된 또 하나의 쿼리 / 종속적인 관계
+            ex. SELECT * FROM A
+                WHERE a >
+                (SELECT a FROM A WHERE name='aa');
+        주의사항 : ORDER BY x / 연산자의 오른쪽 / SELECT문으로만 작성
+
+        반환에 따른 분류
+            - 단일 행 : 서브쿼리가 결과를 1개의 값만 반환
+                연산자 : = 같다 / <> 같지 않다
+
+            - 다중 행 : 서브쿼리가 결과를 2개 이상 반환
+                연산자 : 
+                IN : 하나라도 만족하면 반환
+                    ex. 1 in (1,2,3,4) // 반환
+                ANY : 하나라도 만족하면 반환  비교 연산 가능
+                    ex. 10 <any(1,2,3,4) // 반환x
+                ALL : 모두 만족하면 반환 비교 연산 가능
+                    ex. 99 >=all(99,100,101) // 반환x
+            
+        스칼라 서브쿼리 : 일반적으로 WHERE에 작성하는 서브쿼리와 달리 SELECT에 작성하는 서브쿼리
+            - AS : 서브쿼리가 너무 길기 때문에 단축어로 표현
+            ex. SELECT DISTINCT emp_no, (
+                    SELECT avg(salary)
+                    FROM salaries as A
+                    WHERE A.emp_no = B.emp_no
+                ) AS avg_salary
+                FROM salaries as B;
