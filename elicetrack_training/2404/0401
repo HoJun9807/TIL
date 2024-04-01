@@ -1,1 +1,34 @@
 ## elice cloudtrack - 0401 ##
+
+    HTTP 상태코드
+        200 OK                      -> 정상 실행
+        201 CREATED                 -> 정상 실행
+        204 NO CONTENT              -> 정상 실행
+        4xx                         -> 호출 시도를 잘못함
+        400 BAD REQUESTBODY         -> 필수값, 클라이언트가 호출할때 문제 발생
+        404 NOT FOUND               -> 데이터가 없음
+        5xx                         -> 서버 문제
+        500 INTERNAL SERVER ERROR   -> 서버 코드 문제일 가능성이 높음
+
+# 도서 예약 시스템
+    URL쿼리 스트링 방식
+    @GetMapping을 통해 경로를 메서드와 매핑한다.
+    @RequestParam을 사용해서 url에서 직접 입력하여 매개변수 값을 받는다.
+
+# 도서 예약 시스템
+    HTML Form 방식
+    View컨트롤러는 @GetMapping을 통해 "/book-reservation" url을 형식에 맞게 추가해주면 return "bookReservationForm"로 하여
+    templetes에 "bookReservationForm.html"을 찾아서 이동한다.
+    
+    Controller
+    @PostMapping는 Form을 통해 객체를 생성하고 아래에 있는 매서드를 매핑하여 "/book-reservation" 해당 경로에 return한다.
+
+# 엘카데미 - GET API
+    @RequestMapping을 통해 해당 컨트롤러가 동작할 경로를 지정해준다.
+    SubjectService안에 있는 함수를 사용해서 해당 지문에 맞게 ResponseEntity에 담아서 반환한다.
+
+# 엘카데미 - POST API
+    위와 동일한 작업을 진행하면 된다 다만 DTO에서 작동하는 원리 또한 이해를 해야한다.
+
+# 엘카데미 - PATCH/DELETE API
+    ResponseEntity Patch / Delete
