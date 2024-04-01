@@ -1,2 +1,52 @@
 ## elice cloudtrack - 0401 ##
 
+# Web
+    - 웹은 클라이언트와 서버 사이의 요청와 응답(http 메시지 처리)을 통해 작동한다.
+        http 메시지는 RESTful API 인터페이스 서비스를 사용한다.
+
+        API(Application Programming Interface) : 프로그램과 프로그램 사이의 상호작용(요청과 응답)을 처리를 가능하게 도와주는 도구와 규약들의 집합
+
+        RESTful API : REST 아키텍처를 구현하는 웹 서비스
+            HTTP URL을 통해 자원을 명시하고
+            Method를 사용한다.
+
+            기본적인 Method
+                Create = POST
+                Read = GET
+                Update = PUT
+                Delete = DELETE
+
+            Client <--HTTP message--> Sever
+
+
+# Spring
+    - 데이터 중심 애플리케이션
+        서비스 생명 주기가 점점 늘어남 => 유지보수, 확장된 서비스에 대한 어려움
+    - 웹 framework
+        DI, AOP, OOP pattern
+
+    - Spring = framework / Spring boot => Spring을 단순화/경량화 한 것
+        사용 패턴을 손쉽게, 내장
+        Spring eco system : Spring내의 프레임 워크 솔루션 환경
+
+        객체지향-디자인패턴을 강제해 모듈 결합도가 낮아지고 응집도를 높여준다.
+
+        problem
+            서로 다른 팀이 각 개체를 개발하였을 때, 서로의 코드를 잘 모른다면?
+            => 경량 콘테이너 - 다른 layer에 위치하는 component를 조립하는 기능을 제공하는 프레임워크
+
+    - IoC?
+        프레임워크의 특징 : IoC - 제어역전
+        실행부(Spring)와 구현(비지니스 로직-개발자)으로 나눈다.
+        모듈 간의 결합도는 낮고 유연성이 높아진다. => 확장성, 유지보수
+
+    - DI(Dependency Injection)?
+        IoC는 범용적인 표현이므로 이 패턴을 좀 더 정확하게 표한하기 위한 스프링 용어
+        서로 다른 layer에서 component를 연결하기 위한 방법
+        의존 관계에 대한 문제점 - 하나가 바뀌면 다른 것도 바꿔야함 
+            => DI는 의존성을 낮춤
+            
+        Dependency를 관리하기 위해 Spring의 assembler가 DI해서 해결
+
+        DI x => repo를 직접 만들어서 의존성을 가진다. 언제 사용하고 object를 만들지 흐름을 스스로 관장
+        DI o => repo를 주입받아 type or interface만 맞으면 되고 수정을 원할 시 의존 주입 대상이 되는 객체를 생성하는 곳만 수정해주면 된다. @(어노테이션)을 보고 해준다. Springboot는 autoconfiguration에 패턴이 들어있다.
