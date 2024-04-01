@@ -50,3 +50,18 @@
 
         DI x => repo를 직접 만들어서 의존성을 가진다. 언제 사용하고 object를 만들지 흐름을 스스로 관장
         DI o => repo를 주입받아 type or interface만 맞으면 되고 수정을 원할 시 의존 주입 대상이 되는 객체를 생성하는 곳만 수정해주면 된다. @(어노테이션)을 보고 해준다. Springboot는 autoconfiguration에 패턴이 들어있다.
+
+        스프링에서는 생성자 주입을 공식 권장
+
+    - IoC 컨테이너
+        Spring 컨테이너는 Spring Framework의 핵심
+            DI를 사용하고 객체를 생성하며 전체 수명 주기를 구성하고 관리 => 어셈블링해서 애플리케이션 컴포넌트는 관리
+
+    - 스프링빈
+        사용자가 컨테이너에 제공하는 메타데이터로 구성된다.
+
+
+    RestController -> RequestMapping("/") -> GetMapping("/{id}") PathVariable : 조회
+                                          -> PostMappring RequestBody : 생성
+                                          -> PutMapping : 수정 -> 데이터가 없으면 새롭게 생성 있으면 수정
+                                          -> DeleteMapping : 삭제
