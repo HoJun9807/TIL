@@ -1,4 +1,4 @@
-## elice cloudtrack - 0325 ##
+## elice cloudtrack - 0327 ##
 
 # 가게 DB 구축하기
     INSERT INTO 를 사용하여 데이터의 값을 입력한다. -은 null의 값을 갖는다.
