@@ -1,0 +1,142 @@
+## elice cloudtrack - [3기-05-02] ##
+
+# Spring
+    - 스프링 프레임워크의 특징
+        POJO : 순수 자바만을 통해서 생성한 객체
+        IoC : 객체의 생명주기 관리를 외부(Spring 컨테이너, IoC컨테이너)에 위임하여 제어 역전을 통해 의존성 주입과 관점 지향 프로그래밍이 가능하다.
+        DI
+        AOP : 관점 지향 프로그래밍 / Aspect 기준으로 묶어 개발하는 방식
+
+    - 라이브러리 
+        의존성 추가 방법 : build.gradle파일의 dependencies에 추가
+
+
+    - 프로젝트 실행
+        터미널 : ./gradlew build --> cd build/libs --> java -jar *.jar
+
+    - 프로젝트 관리 툴
+        Maven - Apache 프로젝트 => artifact를 build하는 빌드 툴
+                프로젝트의 모든 것을 관리한다.
+                pom.xml => 프로젝트 / 라이브러리 / 빌드 정보 등을 관리
+            라이프사이클 : Clean -> Build -> Site 
+
+# 웹 서비스
+    동작 방식 :
+        사용자 ---url---> 클라이언트 ---http요청---> 서버
+             <--시각화--- 클라이언트 <---http응답--- 
+
+    동적 웹의 두 가지 구현 방법
+        CSR(Client-Side-Rendering) : 프론트엔드에서 사용자가 페이지에서 보는 동적인 부분을 대부분 처리
+        SSR(Server-side-Rendering) : 백엔드에서 페이지 대부분의 영역을 처리해서 프론트엔드로 전달하는 방식
+
+
+
+## elice cloudtrack - [3기-05-04] ##
+
+# MVC
+    - MVC? 
+        Model - View - Controller
+        소프트웨어 아키텍처 디자인 패턴의 한 종류
+
+        Model : 데이터와 비즈니스 로직을 담당 / 변경발생 시 View에게 알림 / DAO와 DO로 구성 
+        View : 사용자 인터페이스를 담당 / 모델의 데이터를 표현 / 받은 입력을 컨트롤러에 전달
+        Controller : 모델과 뷰 사이의 연결고리 역할 
+
+    - 템플릿 엔진 & Thymeleaf
+        - 템플릿 엔진 : 템플릿 양식과 데이터가 합쳐져 HTML 문서를 출력하는 소프트웨어
+                필요성 : 코드 수 감소 / 재사용성 높임 / 유지보수 용이
+
+        - Thymeleaf : 스프링 부트에서 권장하는 서버 사이드 템플릿 엔진
+                특징 : HTML을 기반으로한 네츄럴 템플릿 / 스프링 통합 지원 / 문법
+
+    - REST API
+        REST : 자원을 이름으로 구분하여 해당 자원의 상태를 주고 받는 것
+            - 구성요소
+                자원 : URI
+                행위 : HTTP Method
+                표현 : HTTP Mesaage Pay Load
+            - 특징 : Server-Client 구조 / 무상태 / 캐시 처리 / 계층화 / 인터페이스 일관 / 옵셔널
+
+        REST API? REST 기반으로 API를 구현한 것
+            설계 중심 규칙 : URI는 정ㅂ의 자원을 표현해야 한다. / 자원에 대한 행위는 HTTP Method로 표현
+
+# API 생성
+    - GET API : 자원을 조회하기 위한 API
+        @RequestMapping : Value와 Method로 정의하여 API를 개발하는 방식
+        @GetMapping : GET API를 호출하는 경우 사용 / return
+        @PathVariable : 파라미터를 전할하기 위해 URL에 값을 담아 요청{id}
+        @RequestParam : 쿼리 문자열을 전달하기 위해 사용되는 방식 / key=value 형태 / return에 직접 반환
+        DTO : 파라미터가 많을 경우 DTO 객체를 생성해서 사용
+
+    - POST API : 자원을 추가하기 위해 사용되는 API / URL이 아닌 HTTP Body에 추가하여 서버에 요청
+        @PostMapping
+        @RequestBody : Body에 담겨있는 값을 받기 위해서 사용하는 어노테이션 / 객체 생성
+            ex. POST APIs
+            // - Post를 통해 전달받는 파라미터를 범용적으로 사용하기 위해서 Map을 사용
+            @PostMapping("/posts/new")
+            public Post createNewPost(@RequestBody Map<String,String> p) {
+                String title = p.get("title");       //body에서 title,contents에 해당하는 값을 입력
+                String content = p.get("contents");
+                return postService.savePost(title,content); //위에 입력받은 값을 저장
+            }
+
+            // - PostDTO를 전달받는 파라미터 사용
+            @PostMapping("/posts")
+            public Post createPostUsingDto(@RequestBody PostDTO postDTO) {
+                return postService.savePost(postDTO);
+            }
+
+    - PUT API : 자원이 존재하면 갱신, 없을 경우 생성하는 API / 업데이트에 사용
+        @PutMapping
+        @RequestBody
+
+    - DELETE API : 자원을 삭제하기 위해 사용되는 API
+        @DeleteMapping
+        @PathVariable
+            
+
+
+REST API CRUD EX.
+@RestController
+@RequestMapping("/contacts")
+public class ContactController {
+
+    private final ContactService contactService;
+
+    @Autowired
+    public ContactController(ContactService contactService) {
+        this.contactService = contactService;
+    }
+
+    @GetMapping("/{contactId}")
+    public ResponseEntity<Contact> getContactId(@PathVariable long contactId){
+        Contact contact = contactService.findContact(contactId);
+        if (contact == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(contact, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Contact>> getContacts() {
+        List<Contact> contacts = contactService.findContacts();
+        if (contacts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(contacts, HttpStatus.OK);
+    }
+
+    @PutMapping("/{contactId}")
+    public ResponseEntity<Contact> updateContact(@PathVariable long contactId,@RequestBody Contact contact){
+        contact.setContactId(contactId);
+        Contact updatedContact = contactService.updateContact(contact);
+        return new ResponseEntity<>(updatedContact, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{contactId}")
+    public ResponseEntity<Contact> deleteContact(@PathVariable long contactId) {
+        contactService.deleteContact(contactId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}
