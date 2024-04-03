@@ -1,0 +1,17 @@
+## elice cloudtrack - 0403 ##
+
+# 보이는 엘카데미 - GET API
+    GetMapping을 사용해서 조건에 맞게 코드를 작성한다.
+
+# 보이는 엘카데미 - POST API
+    RedirectAttributes 사용하는 이유 서버에서 불러오는 속도가 다르기 때문에 최적화를 하기 위해서는 필요하다
+
+# 보이는 엘카데미 - PATCH/DELETE API
+    POST와 큰 차이는 없지만 id값을 받아오고  mapper 객체를 사용하여 SubjectPatchDto를 Subject 엔티티 객체로 
+    매핑하는 것을 주의해서 풀어야한다.
+
+# 보이는 엘카데미 - JdbcTemplate GET API
+    JdbcTemplate을 활용해서 GET을 구현하는 방법이다.
+
+# 보이는 엘카데미 - JdbcTemplate POST API
+    JdbcTemplate을 활용해서 POST를 구현하는 방법이다.
