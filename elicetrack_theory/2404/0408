@@ -1,5 +1,10 @@
 ## elice cloudtrack - 0408 ##
 
+# 강의들으면서 이해
+    model에 저장해서 templates화면에 띄울 수 있도록 반환
+    mapper사용이유 : 데이터를 직접적으로 넣으면 단일 책임 원칙에 위반하기 때문에 한번 mapper내의 소드를 
+    거쳐서 넘겨줘야 한다
+
 # ORM (Object Relational Mapping)
     OOP의 객체와 RDB의 테이블을 자동으로 매핑하는 방법
     쿼리문이 아니라 메서드로 데이터 조작 가능
@@ -29,4 +34,55 @@
                                 저장되는 특성 / 영구적인 저장소에 데이터를 저장하고 관리하는 것
 
     
-    - Entity Manager
+    - 영속성 컨텍스트(Persistence Context)와 엔티티 매니저(Entity Manager)는 JPA(Java Persistence 
+    API)에서 데이터를 관리하는 중요한 구성 요소
+        => 엔티티 매니저는 애플리케이션에서 영속성 컨텍스트를 관리하는 '창구'역할을 하며, 영속성 컨텍스트는
+        이러한 작업이 수행되는 '공간'으로서 엔티티의 생명주기와 영속성을 관리한다.
+
+        엔티티 매니저 : Entity CRUD 포함 모든 일 처리 / 영속성 컨텍스트를 접근 및 관리
+        영속성 컨텍스트 : 엔티티를 영구 저장하는 환경
+
+        엔티티 생명주기 : 
+            비영속성(new) : 엔티티 객체를 생성했지만 아직 영속성 컨텍스트에 추가되지 않은 상태
+            영속(managed) : 엔티티 매니저를 통해서 엔티티를 영속성 컨텍스트에 저장된 상태
+            준영속(detached) : 영속성 컨텍스트가 제공하는 기능이 동작하지 않는 상태
+            삭제(Removed) : 데이터베이스에서 레코드를 삭제하기 위해 영속성 컨텍스트에서 삭제
+            flush() : 영속성 컨텍스트 변경 내용을 DB에 반영
+
+        영속 컨텍스트 특징 : 식별자 값이 반드시 있어야한다 / 엔티티를 식별자값으로 구분하기 때문
+                            flush()를 통해 엔티티를 데이터베이스에 반영
+                엔티티를 관리하는 장점 :
+                    - 1차 캐시 = 속도 빠름
+                    - 동일성 보장 : 식별자로 인식하기 때문에 인스턴스가 동일
+                    - 트랜잭션을 지원 : 시작과 입력을 한 단위로 하여 DB에 적용
+                            엔티티 매니저는 커밋 직전까지 DB에 저장하지 않고 내부 쿼리에 모아둔다
+
+            변경 감지(dirty checking) : 영속상태에 있는 엔티티 변경사항을 DB에 자동으로 반영
+    
+    - Spring Data JPA
+        CRUD를 위한 공통 인터페이스
+           ex. public interface SkillRepository extends JpaRepository<Skill, Long> {}
+             => JpaRepository<,> 선언 시 JPA ORM을 사용할 수 있다.
+
+        Repository 인터페이스 메서드 생성 규칙
+            메서드 이름으로 JPA에서 쿼리를 자동으로 생성
+            findBy: SQL 문의 where 절 역할
+            조회 메서드(find)에 조건으로 붙일 수 있는 대표적인 기능
+            AND, OR: 조건을 여러 개 설정하기 위한 역할
+            Like/Not Like: SQL문의 like와 동일
+            IsNull/IsNotNull: Null 이거나 Null이 아닌 값을 확인
+            LessThan/GreaterThan: 특정 값을 기준으로 대소 비교 시 사용
+            Between: 두 값 사이에 데이터를 조회
+            OrderBy: SQL 문에서 order by와 동일
+            countBy: SQL 문에서 count와 동일
+
+# Pagination
+    Dataset을 더 작고 관리하기 쉬운 Chunk로 나누는 기술
+
+# Lombok
+    반복되는 코드를 줄이기 위한 Java Library
+
+# Auditing과 Base Entity
+    Audit(감사)란? 
+        엔티티와 관련된 이벤트를 추적하고 기록
+        여기서 이벤트는 Entity를 CUD같은 작업
