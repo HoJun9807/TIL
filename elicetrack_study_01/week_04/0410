@@ -1,0 +1,17 @@
+## elice cloudtrack - 0410 ##
+
+# HTTP
+    HyperText Transfer Protocol
+    서버와 클라이언트 사이의 메시지
+    Request : 클라이언트가 html을 서버에게 요청
+    Response : 서버가 html을 클라이언트에게 전달
+
+    요청/응답에 맞는 헤더 형식
+    헤더와 바디는 블랭크 라인으로 구분
+    헤더에는 클라이언트와 서버의 정보가 담겨 있다.
+
+    HTTP status
+    2xx 성공
+    3xx 리다이렉션
+    4xx 클라이언트 에러
+    5xx 서버 에러
