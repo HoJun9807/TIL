@@ -39,4 +39,82 @@
 
             Spring data JPA : JPA를 쓰기 편하게 만들어 놓으 모듈
 
-            
+
+# project
+    API & REST API
+        API : 클라이언트의 요청을 서버에게 전달하고, 서버의 결과물을 클라이언트에게 잘 돌려주는 역할
+        REST API : 자원을 이름으로 구분해 자원의 상태를 주고 받는 API 방식 / URL 설계 방식
+            서버/클라이언트 구조, 무상태, 캐시처리가능, 계층화, 인터페이스 일관성
+            장점 : URL만 보고도 무슨 행동을 하는 API인지 명확하게 알 수 있다.
+                   상태가 없다는 특징이 있어 클라이너트와 서버의 역할이 명확하게 분리
+                    HTTP 표준을 사용하는 모든 플랫폼에서 사용할 수 있따. 
+            단점 : HTTP 메서드 즉, GET&POST와 같은 방식의 새수에 제한이 있고, 표준 규약이 없다.
+
+            사용방법 
+                1. URL에 동사를 쓰지 말고, 자원을 표시해야 한다
+                    ex. /students/1 => 1번 학생을 가져온다는 의미가 명확, 적합
+                2. 동사는 HTTP 메서드로 CRUD => POST, GET, PUT, DELETE
+
+    엔티티 구성
+        @Entity : 엔티티로 지정
+        @Getter : get메서드를 대체
+        @NoArgsConstructor(access = AccessLevel.PROTECTED) : 기본 생성자를 어노테이션으로 대체
+        @Builder : 롬복에서 지원하는 애너테이션 / 빌더 패턴 방식으로 객체를 생성할 수 있다.
+            빌더 패턴 : 어느 필드에 어떤 값이 들어가는지 명시적으로 파악 / 가독성으 높힌다.
+                ex. new Article("a","b"); // 빌더 패턴 x
+                    Article.builder() // 빌더 패턴 o
+                        .title("a")
+                        .content("b")
+                        .build();
+
+    리포지토리 생성
+        JpaRepository를 상속받을 때 제너릭으로 Article과 pk타입 Long을 인수로 넣음
+
+    API 구현
+        서비스 메서드 코드(저장)
+            DTO : 계층끼리 데이터를 교환하기 위해 사용하는 객체 // 전달만하는 전달자 역할 비즈니스 로직 x
+                toEntity로 생성자를 사용해 객체 생성 => 필더 패턴을 사용해 DTO를 엔티티로 만들어 주는 메서드
+            (//DAO : 데이터베이스와 연결되고 데이터를 조회하고 수정하는 데 사용하는 객체)
+
+            @Service : 빈으로 서블릿 컨테이너에 등록
+            @RequiredArgsConstructor : final이 붙거나 @NotNull이 붙은 빌드의 생성자 추가
+            .save() 따로 생성하지 않았지만 JpaRepository에서 지원하여 DB에 Article 엔티티를 저장 메서드이다.
+
+        컨트롤러 메서드 코드
+            @RestController : HTTP Response Body에 객체 데이터를 JSON 형식으로 반환하느 컨트롤러
+            @PostMapping() : HTTP 메서드가 POST일 때 요청 받은 URL과 동일한 메서드와 매핑한다.
+            @RequestBody : HTTP를 요청할 때 응답에 해당하는 값을 @RequestBody가 붙은 대상 객체를 매핑한다.
+            ResponseEntity.status().body() : 응답 코드로 201, 즉 Created를 응답하고 데이블에 저장된 객체를 반환한다.
+
+        API 실행 테스트(H2 console)
+            application.yml에 datasource: url : 을 추가해 주고 postman을 사용하여 post로 요청을 보내면 스프링 부트 서버에 저장된 정보를 확인 할 수 있다.
+            localhost:8080/h2-console에 접속하여 확인 할 수도 있다.
+
+        테스트 코드 작성**
+            H2 콘설에 접속해 쿼리를 입력해 데이터가 저장되었는지 확인해야 했던 작업을 테스트 코드로 확인할 수 있도록 하는 방식
+                @ObjectMapper : 직렬화, 역직렬화를 위한 클래스
+                    직렬화 : 자바 객체를 JSON 데이터로 변환하는 것
+                assertThat : 테스트 코드 상에서 발생한 결과 값과 프로젝트에서 생성된 결과 값에 대한 비교를 하기 위한 메서드
+
+        서비스 메서드 코드(조회)
+            GET 요청이 오면 글 목록을 조회할 메서드 작성하기
+                Sevice에 조회에 대한 메서드 추가 //.findAll()
+            응답을 위한 DTO 생성
+            Controller에 조회하는 GET 메서드를 작성 ArticleResponse로 파싱*하여 body에 담아 클라이언트에 전송 / .stream* .map*
+
+        서비스 메서드 코드(삭제)
+            {id} PathVariable을 이용한 id 값을 찾아서 해당 id 값을 pk로 사용하는 데이터를 삭제하는 메서드를 작성한다 / .deleteById
+
+        서비스 메서드 코드(수정)
+            엔티티에 update 메서드를 작성
+            요청을 받을 DTO 생성
+            @Transctional : 해당 어노테이션을 작성하면 하나의 단위로 묶어 중간에 필드가 바뀌어도 에러가 발생해도 제대로 된 값 수정을 보장하게 됨
+
+    Thymeleaf : 템플릿 엔진 => 스프링 서버에서 데이터를 받아 우리가 보는 웹 페이지, 즉, HTML 상에 그 데이터르 넣어 보여주는 도구 //문법 규칙**
+        model : 모델 객체는 뷰, html 쪽으로 값을 넘겨주는 객체
+
+        게시글 목록 뷰 구현
+            DTO에 id, title, content를 담을 객체를 작성
+            ViewController를 생성하여 model객체에 Article 테이블의 정보 JSON 형태로 html에 보냄
+            thymeleaf문법을 사용하여 해당 페이지의 데이터 정보를 브라우저에서 보여줌
+        
