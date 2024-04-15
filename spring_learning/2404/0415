@@ -1,0 +1,38 @@
+## spring_learning - project 0415 ##
+
+    View 구성하기
+        게시글 목록 뷰 구현
+            DTO에 id, title, content를 담을 객체를 작성
+            ViewController를 생성하여 model객체에 Article 테이블의 정보 JSON 형태로 html에 보냄
+            thymeleaf문법을 사용하여 해당 페이지의 데이터 정보를 브라우저에서 보여줌
+
+        게시글 삭제 뷰 구현
+            articles 화면에서 삭제 버튼을 눌렀을 때, 웹 브라우저 화면으로 삭제가 완료되었음을 알리는 팝업을 띄워주기 위해
+            static/js 디렉토리에 article.js 파일을 추가하고, article.html에 삭제하고자 하는 id값을 input 타입의 hidden 속성으로 작성한다.
+
+        게시글 생성/수정 뷰 구현
+            생성 뷰와 수정 뷰의 가장 큰 차이 점은 수정 뷰는 id값을 파라미터로 받아야서 출력해야 한다는 것이다.
+            controller에서 id 값을 가지고 있지 않는 경우에는 생성, 가지고 있다면 findById()를 호출하여 기존 값을 가져와서 수정하도록 메서드를 작성
+            newArticle.html을 생성하여 수정 시에 필요한 id는 hidden 타입으로 숨기고 th:if로 id값에 따른 버튼을 나타내도록 한다.
+            각 버튼에 대한 이벤트를 js파일에 작성
+            article.html 파일에도 해당 버튼을 클릭 시 id 값과 같이 수정 화면으로 넘어가기 위해 th:onclick을 사용하여 해당 기능을 구현한다.
+
+        @Controller에서 반환값으로 뷰를 찾아서 보내주는 템플릿엔진의 대표적인 예는 타임리프라고 할 수 있다. 컨트롤러에서 모델을 통해 데이터를 설정하면, 모델은 뷰에서 사용할 수 있게 데이터를 전달해준다. 타임리프 문법&표현식*
+
+
+
+# Spring Security
+    스프링 시큐리티 : 스프링 기반의 애플리케이션 보안을 담당하는 스프링 하위 프레임워크
+        인증 : 사용자의 신원을 입증하는 과정
+        인가 : 권한을 확인하는 과정
+
+        보안 옵션을 애너테이션으로 설정하여 CSRF 공격, 세션 고정과 같은 공격을 방어해주고 요청 헤더도 보안 처리할 수 있음
+
+        - 아이디 & 패스워드 기반의 폼 로그인 절차 처리
+            (아이디 & 패스워드 입력 --> HTTPServletRequest에 정보 전달 ) --> AuthenticationFilter가 정보에 대한 유효성 검사
+            --> UsernamePasswordAuthenticationToken을 생성하여 보냄 --> 전달받은 인증요청 객체를 AuthenticationManager에게 전달 --> 객체를 구현하여 AuthenticationProvider에 보냄--> 아이디를 UserDetailsService에 보냄, 아이디로 찾은 정보를 UserDetails객체로 만들어 다시 AuthenticationProvider에게 전달. --> DB에 있는 사용자 정보를 가져옴 --> 입력정보와 UserDetails의 정보를 비교해 실제 인증 처리를 진행함 --> 다시 역순으로 전달하여 AuthenticationFilter가 SecurityContextHolder에 저장 --> 성공 및 실패에 따라 해당 핸들러를 실행
+
+    회원 도메인 생성
+        테이블을 생성하여 테이블과 연결할 도메인을 만든 후, 이 테이블과 연결할 회원 엔티티를 생성 --> 회원 엔티티와 연결되어 데이터를 조회할게 해줄 리포지터리를 만들어서 마지막으로 스프링 시큐리티에서 사용자 정보를 가져오는 서비스를 구상
+
+        

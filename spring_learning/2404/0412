@@ -113,8 +113,4 @@
     Thymeleaf : 템플릿 엔진 => 스프링 서버에서 데이터를 받아 우리가 보는 웹 페이지, 즉, HTML 상에 그 데이터르 넣어 보여주는 도구 //문법 규칙**
         model : 모델 객체는 뷰, html 쪽으로 값을 넘겨주는 객체
 
-        게시글 목록 뷰 구현
-            DTO에 id, title, content를 담을 객체를 작성
-            ViewController를 생성하여 model객체에 Article 테이블의 정보 JSON 형태로 html에 보냄
-            thymeleaf문법을 사용하여 해당 페이지의 데이터 정보를 브라우저에서 보여줌
         
