@@ -1,4 +1,4 @@
-# TIL - EliceTrack 학습 기록
+# TIL - 학습 기록
 
 # git add .
 # git commit -m " "
