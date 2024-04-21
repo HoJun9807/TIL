@@ -1,0 +1,60 @@
+## git_learning - project 0421 ##
+
+# elice_gitlab에 저정되어 있는 project_starting 프로젝트를 clone으로 불러와 나의 저장소에 저장해보기
+
+
+- 저장소 생성하기
+    git lab에 projcet repo 생성
+    repo와 나의 로컬 저장소 연결
+    starter project을 clone 받아와서 파일을 나의 로컬 저장소에 옮김
+    add / commit / push 를 통해 해당 원격 저장소에 starter projcet를 저장
+    pull을 사용하여 나의 로컬 저장소로 파일을 끌어와서 
+
+- 프로젝트 구상하기
+    elice_track 학생들이 개발 및 학습 관련 정보를 공유하는 게시판 제작
+        
+    테이블 구성 : 회원 / 게시판 / 댓글
+        회원 : id / pw / name / elice_season
+            id - 로그인 아이디
+            pw - 로그인 pw
+            name - 회원 이름
+            elice_season - 트랙 기수 / ex. cloud_3
+
+        정보 게시판 : title / content / (image) / (like) - 회원 작성
+            title - 게시글 제목
+            content - 게시글 내용
+
+            추가 시 : 익명 게시판 : title / content - 회원 id가 남지 않게 블라인드 처리
+
+        댓글 : coment / (like)
+            coment - 댓글
+
+- 프로젝트 제작 시 필요 서비스 & 뷰 기술
+    서비스 :
+        기본 게시판 CRUD
+        로그인 - session을 활용해서 회원 id 값을 활용
+        게시글 보기 - 회원&비회원 모두 조회 가능
+        게시글 작성&수정 - 게시글 작성&수정 페이지 / id값
+        댓글 - 게시글 댓글 / id값
+
+    뷰 :
+        로그인, 회원가입 페이지 / 로그아웃은 버튼 / 확인 메시지
+        정보 게시판 조회, 작성, 수정 페이지 / 삭제는 id값에 따라 히든 버튼 / 확인 메시지
+        댓글 - 게시글 댓글 작성 및 수정 기능 / 삭제는 id값에 따라 히든 버튼 / 확인 메시지
+
+
+    프로젝트 공통 요구 사항
+        - 각 도메인 별 CRUD 구현
+        - Lombok을 통한 애너테이션 기반 코드 자동완성
+        - 관심사 분리를 위한 DTO 객체-엔티티 객체 사용
+        - AOP를 통한 로깅 구현 및 log-back.xml을 활용한 로그 커스터마이징
+        - JPA Auditing을 사용한 생성일시 및 수정일시 필드 자동 추가
+            -> JdbcTemplate을 사용하는 게시판 도메인 제외
+        - 트랜잭션 구현
+        - 매핑 작업을 위한 mapstruct 라이브러리 사용
+            -> https://mapstruct.org/
+
+
+    
+
+
