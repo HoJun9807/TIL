@@ -1,3 +1,3 @@
-## git_learning ##
+## priject_learning ##
 
-# 협업에서 사용되는 git의 사용법 및 정보 #
+# project를 진행하며 격은 어려움과 해결방안을 기록 #
