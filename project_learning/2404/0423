@@ -5,3 +5,4 @@
 - board crud 완료 / board와 post를 1:n 매핑하였고 둘이 연관관계를 가지고 있음
 - post 데이터를 조회할 때 board.id에 해당하는 post 데이터가 넘어와야함 
     --> ex. board.id가 1이면 연관관계로 갖는 post 데이터에 대한 CRUD 진행
+- board-post crud 동작 확인 .but post화면에서 동작이 비정상적인 것을 확인
