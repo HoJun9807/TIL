@@ -9,7 +9,7 @@
     어제 발생했던 page간의 이동은 타임리프 문법을 사용해서 해결하였음
 
     - 코치님 피드백 : pagenation 구현 / login 처리 진행
-- feature#comment의 내용을 dev에 병합
+    - feature#comment의 내용을 dev에 병합
 
 # 앞으로 추가할 내용
     프로젝트 주제를 나만의 기록을 저장하는 일기장 형식으로 변경할 예정
