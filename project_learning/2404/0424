@@ -1,0 +1,21 @@
+## project_learning - project 0424 ##
+
+# 추가 및 수정 사항 : comment crud / page 간의 이동
+    comment crud를 post-detail에서 진행 가능하도록 view컨트롤러를 추가로 작성하지 않고
+    api컨트롤러를 작성하여 js로 해당 기능을 수행해서 db랑 대화하도록 연결
+    comment 수정 시 모달창을 띄워서 수정하도록 하였고, 삭제 시 한번 더 확인하도록 js를 추가하였음
+    연관관계에 맞게 board를 삭제 시 post,comment 모두 삭제되는 것을 확인
+
+    어제 발생했던 page간의 이동은 타임리프 문법을 사용해서 해결하였음
+
+    - 코치님 피드백 : pagenation 구현 / login 처리 진행
+- feature#comment의 내용을 dev에 병합
+
+# 앞으로 추가할 내용
+    프로젝트 주제를 나만의 기록을 저장하는 일기장 형식으로 변경할 예정
+    초기화면 진입 시 회원가입을 하여 로그인을 성공하면 board로 이동하도록 설정
+        => member domain 추가 // session 사용 시 변경할 코드가 생김 다음부터는 처음부터 member를 생각해야할 것 같음
+    nav를 추가해서 사용 시 조금 더 편리성을 추가
+    Bootstrap 템플릿을 사용해서 화면을 꾸밀 예정
+
+
