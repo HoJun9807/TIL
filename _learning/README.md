@@ -1,4 +1,4 @@
-## spring_learning ##
+## _learning ##
 
 0410 : inflearn - stop
 
@@ -7,3 +7,5 @@
 0418 : JPA
 
 ~0508 : 프로젝트 종료
+
+0515~ : inflearn 
