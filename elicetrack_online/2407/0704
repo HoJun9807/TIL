@@ -1,0 +1,104 @@
+## elice cloudtrack - [3기-18] ##
+
+# 클라우드 기술 활용
+
+- 통신망과 클라우드 서비스
+    가상화 통신망 : 통신 기능 유용 NFV / 서비스 요구사항에 따라 필요한 망을 제공
+        Edge Cloud / Core Cloud
+
+    엣지 클라우드 응용 : 자율 주행 / Smart Grid / Health Care / AR/VR / Smart IoT / AI
+
+
+-  Public 클라우드 솔루션
+    AWS : 다양한 서비스 및 솔루션 제공
+        IoT / greengrass / Lambda(Serverless) / Wavelength
+
+    Microsoft Azure : 모든 형태의 클라우드 구조 제공
+        IoT / Serverless / Machin Learning / Hybrid + Multi Cloud 
+
+    Google GCP : 다른 클라우드 솔루션과 크게 다르지 않음
+        IoT / Serverless 
+
+
+- 클라우드 중요 용어
+    서버 가상화
+    클라우드 컴퓨팅 유형 - IaaS / PaaS / SaaS
+    클라우드 용어 - Public / Private / Hybrid
+    클라우드 아키텍처
+    동작 방식
+    클라우드 기술의 변화 - VM / Docker / kubernetes
+    클라우드 서비스 동작 방식의 변화 - 마이크로 서비스 / Serverless
+    클라우드 응용 사례
+
+
+# Web Server
+
+- Web Server 동작 방식 : 클라이언트 -> 인터넷 -> Web Server
+    Web Server : 클라이언트로부터 HTTP 요청을 받아, 정적인 콘텐츠를 제공하는 서버(텍스트, 이미지, 문서)
+        기능 : 클라이언트 요청에 대한 응답 제공 / HTTP 프로토콜을 통한 통신제어 
+        Apache / WebtoB / Nginx, IIS
+
+
+- WAS : 웹 애플리케이션의 실행, 관리, 서블릿과 JSP를 실행하는 환경을 제공하는 소프트웨어
+    기능 : 프로그램 실행 환경과 데이터베이스 접속 기능을 제공하여 비즈니스 로직을 수행
+        Tomcat, Jeus, JBoss
+
+    
+    WAS가 Web Server와 Web Container를 가지는 케이스
+        -> 트래픽이 적을 경유 WAS만으로 웹 서비스 제공 가능
+
+    Web Server와 WAS를 분리
+        -> 정적인 요청은 Web Server에서 처리하여 트래픽 분산 / 동적 요청에 대한 WAS에서 처리
+
+    Web Server : WAS = 1:N
+        -> 로드 밸런싱을 통한 WAS 부하 감소 / 무중단 운영을 튀한 장애 대응 가능
+
+    분리하는 이유?
+        => 기능적 분리 / 부하분산 / 확장성 / 보안성
+    
+
+- Apache(동기)
+    다중 프로세스(MPM PreFork 방식)
+        클라이언트의 요청당 하나의 프로세스로 생성 및 처리(단일 스레드)
+        안정하지만 메모리 소모가 큼
+
+    다중 스레드(MPM Worker 방식)
+        프로세스당 여러 개의 스레드를 사용하여 요청을 처리
+        메모리의 효율성과 처리량이 높음
+
+    C10K : 1만개 클라이언트 요청 / 인터넷 트래픽이 계속 증가하면서 서버에 문제가 발생
+
+    동적 콘텐츠 처리도 가능
+    !트래픽이 많은 경우 자원 낭비가 심하고 프로세스가 Blocking되면 완료될 때까지 대기해야함 / C10K 문제
+
+    
+    WAS 연동 모듈
+        AJP : 서블릿 컨테이너 사이의 통신을 위한 프로토콜 / 보안 기능 X
+        Apache Proxy Module : 포워드 프록시 / 리버스 프록시 / 로드밸런싱 기능을 위해 사용
+
+
+- Nginx(비동기)
+    Event Driven : Event Loop 기반으로 요청에 대한 작업을 단일 스레드로 처리
+    Queue에 추가되어 선입선출 방식으로 실행되고 각 작업은 비동기 처리
+        -> 블로킹 X, 효율적인 시스템 자원 관리
+
+    Master Process : 구동되면 가장 먼저 실행되는 프로세스 / Config 파일 설정
+    Worker Process : 클라이언트의 요청을 받아 비동기 처리하는 프로세스(단일 스레드 구성)
+        CPU 코어 만큼만 워커 프로세스를 생성 / 오래 걸리는 요청은 Thread pool에 작업을 위임하여 처리
+        Cache 기법 사용
+
+    WAS 연동 모듈
+        ngx_http_proxy_module : 프록시 패스 설정 / 로드 밸런싱 / HTTP 요청과 응답 제어
+
+- 프록시(Proxy) : 클라이언트의 요청을 서버 대신 처리하는 중간 서버
+    포워트 프록시 : 클라이언트로부터 HTTP 요청을 특정 서버로 전달하는 중계기
+        특정 IP 주소 도메인 또는 URL에 대한 접근 제한
+    
+    리버스 프록시 : 클라이언트로부터 HTTP 요청을 여러 서버로 라우팅하거나 관리하는 중계기
+        로드 밸런싱(부하 분산) / 보안 강화 및 캐싱
+
+
+- Spring Boot 내장 톰켓 
+    애플리케이션을 JAR파일로 패키징할 때 해당 JAR파일 안에 내장 톰캣이 포함되어 있음
+    동작 원리 : 스프링 부트가 자체적으로 톰캣을 로드 / 해당 톰캣을 애플리케이션의 실행 환경으로 설정하여 사용
+        => 별도 서버 구성이 필요 없어 개발에 더 집중 할 수 있음.
